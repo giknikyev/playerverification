@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Перевірка ліцензій | Ukraine RP</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url('фон5.png') no-repeat center center/cover;
+    color: #fff;
+    margin: 0;
+    padding-top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: -150px;
+}
+
+.header img {
+    width: 250px; 
+    margin-bottom: 10px;
+}
+
+.header h1 {
+    font-size: 36px; 
+    margin: 0;
+    color: #fff;
+    font-weight: 700;
+    font-family: 'Merriweather', serif; 
+    text-shadow: 2px 2px 4px #000, 0 0 25px #000, 0 0 5px #000; 
+}
+
+.container {
+    width: 90%;
+    max-width: 800px;
+    background: #1f1f2e;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 8px 20px rgba(102, 102, 102, 0.5);
+    text-align: center;
+}
+
+select, input, button {
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+button {
+    background-color: #6a0dad;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background-color: #530b82;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.7);
+    width: 400px;
+    background: #29293d;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.477);
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.close-btn {
+    background: #ff4d4d;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.error {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    background: #1f1f2e00;
+    color: #fff;
+}
+.social-links {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px; /* Відстань між кнопками */
+}
+
+.social-button {
+    padding: 10px 15px;
+    background-color: #6a0dad;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-button:hover {
+    background-color: #530b82;
+}
+
+@media (max-width: 786px) {
+    .header h1 {
+        font-size: 28px;
+    }
+
+    .container {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .header img {
+        width: 200px;
+    }
+
+    select, input, button {
+        font-size: 14px;
+    }
+
+    .modal {
+        width: 90%;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    footer {
+        padding: 15px;
+    }
+
+    .social-links {
+        top: 10px;
+        right: 10px;
+    }
+
+    .social-button {
+        font-size: 12px;
+        padding: 8px 10px;
+    }
+}
+</style>
+</head>
+<body>
+
+    <!-- Логотип та текст сервера -->
+    <div class="header">
+        <img src="logoserver.png" alt="Logo"> 
+        <h1>UKRAINE RP — НАЙКРАЩИЙ УКРАЇНСЬКИЙ RP СЕРВЕР В EH</h1>
+    </div>
+<br>
+    <!-- Форма перевірки -->
+    <div class="container">
+        <h2>ПЕРЕВІРКА ГРАВЦІВ</h2>
+        <select id="licenseType">
+            <option value="" disabled selected>Оберіть категорію для перевірки</option>
+            <option value="weapon">Ліцензія на зброю</option>
+            <option value="role">Роль</option>
+            <option value="medical">Поліцейське посвідчення</option>
+        </select>
+        
+        <input type="text" id="username" placeholder="Введіть username">
+        <button onclick="checkLicense()">ПЕРЕВІРИТИ</button>
+    </div>
+
+    <!-- Модальне вікно -->
+    <div id="modal" class="modal">
+        <div id="modal-content"></div>
+        <button class="close-btn" onclick="closeModal()">ЗАКРИТИ</button>
+    </div>
+
+    <!-- Кнопки з посиланнями -->
+<div class="social-links">
+    <a href="https://t.me/+vGSTB2xTvp83Yjc0" target="_blank" class="social-button tiktok">Telegram</a>
+    <a href="https://www.tiktok.com/@ukrainerpeh?_t=ZN-8tWqtjqCgxb&_r=1" target="_blank" class="social-button tiktok">TikTok</a>
+    <a href="https://x.com/UkraineRP_EH" target="_blank" class="social-button tiktok">Twitter</a>
+    <a href="https://www.roblox.com/games/start?placeId=7711635737&launchData=joinCode%3D0uadtv1u" target="_blank" class="social-button tiktok">ГРАТИ</a>
+</div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Ukraine RP | Всі права захищені</p>
+    </footer>
+
+    <script>
+        const licenses = {
+            weapon: {
+    "Kurdzhos999": { status: "Дійсна", expiry: "05.04.2025", telegram: "6853741964" },
+    "Pit_uk": { status: "Дійсна", expiry: "05.04.2025", telegram: "7811050819" },
+    "MAXIM4IK123098": { status: "Дійсна", expiry: "05.04.2025", telegram: "6053516349" },
+    "Global20207": { status: "Дійсна", expiry: "05.04.2025", telegram: "1431122546" },
+    "cheater777_Yt": { status: "Дійсна", expiry: "05.04.2025", telegram: "5696745197" },
+    "kingfogfok": { status: "Дійсна", expiry: "05.04.2025", telegram: "842515350" },
+    "arina_mike141": { status: "Дійсна", expiry: "05.04.2025", telegram: "7505928620" },
+    "artemMelnichenko2013": { status: "Дійсна", expiry: "05.04.2025", telegram: "5242336088" },
+    "kakashkavurybashkaa": { status: "Дійсна", expiry: "05.04.2025", telegram: "5249364290" },
+    "Zeon_18": { status: "Дійсна", expiry: "05.04.2025", telegram: "6429372531" },
+    "nsx1987": { status: "Дійсна", expiry: "05.04.2025", telegram: "563810354" },
+    "gggiiky83": { status: "Дійсна", expiry: "05.04.2025", telegram: "6202700499" },
+    "Maksimka_228005": { status: "Дійсна", expiry: "05.04.2025", telegram: "1760965523" },
+    "w0ndexq": { status: "Дійсна", expiry: "05.04.2025", telegram: "6684510288" },
+    "Kedvirm": { status: "Дійсна", expiry: "05.04.2025", telegram: "7811987070" },
+    "nazar1cyber2sportman": { status: "Дійсна", expiry: "05.04.2025", telegram: "6194910294" },
+            },
+
+            role: {
+             "nikyev_Off": { role: "Засновник сервера", telegram: "t.me/ukreh_admin" },
+    "Zoomsos123": { role: "Адмін сервера", telegram: "t.me/Xmm_help" },
+    "bodja150510": { role: "Адмін сервера", telegram: "t.me/marsqwrty0" },
+    "Yezh1lya": { role: "Адмін сервера", telegram: "t.me/True_Japanese_Samurai" },
+    "K_PoPlove9473": { role: "Адмін сервера", telegram: "t.me/aeriwam" },
+    "Ilua787876": { role: "Адмін сервера", telegram: "t.me/uomdck" },
+    "XxHA7AxX": { role: "Головний Суддя", telegram: "t.me/Na7atelega" },
+    "SMAXS1313": { role: "Суддя", telegram: "t.me/SaulGoodmanJimmyMC" },
+    "olegh34": { role: "Суддя", telegram: "t.me/olegh34" },
+    "Pit_uk": { role: "Охоронець", telegram: "7811050819" },
+    "Kurdzhos999": { role: "Охоронець", telegram: "t.me/vanya_kurdzhos" },
+    "smol591": { role: "Мер", telegram: "t.me/smolstvol" },
+    "bratsmola": { role: "Міністр МВС", telegram: "t.me/rin_mew" },
+    "nazar1cyber2sportman": { role: "Голова СБС", telegram: "t.me/NazSkil" },
+    "Cekci_mojito": { role: "Працівник СБС", telegram: "7729164856" },
+    "Kedvirm": { role: "Працівник СБС", telegram: "7811987070" },
+    "KRAM_Militarust": { role: "Працівник СБС", telegram: "1768839743" },
+    "Yhorkorotkevych": { role: "Працівник СБС", telegram: "6717520067" },
+    "CAXAPOK_5685rb": { role: "Працівник СБС", telegram: "7672435136" },
+    "Pushka2030": { role: "Працівник СБС", telegram: "5549609551" },
+    "sushunyaboy": { role: "Працівник СБС", telegram: "5567428453" },
+    "MAXIM4IK123098": { role: "Директор ДБР", telegram: "t.me/kotcco" },
+    "kingfogfok": { role: "Заступник Директора ДБР", telegram: "t.me/lllCasino" },
+    "global20207": { role: "Працівник ДБР", telegram: "1431122546" },
+    "nsx1987": { role: "Працівник ДБР", telegram: "563810354" },
+    "artemMelnichenko2013": { role: "Працівник ДБР", telegram: "5242336088" },
+    "kakashkavurybashkaa": { role: "Працівник ДБР", telegram: "5249364290" },
+    "Zeon_18": { role: "Працівник ДБР", telegram: "6429372531" },
+    "gggiiky83": { role: "Працівник ДБР", telegram: "6202700499" },
+    "w0ndexq": { role: "Працівник ДБР", telegram: "6684510288" },
+    "kartoffel_2288": { role: "Психолог", telegram: "t.me/usraze" }
+            },
+            medical: {
+                "": { status: "", expiry: "", role: "", telegram: "" },
+                "": { status: "", expiry: "", role: "", telegram: "" },
+                "": { status: "", expiry: "", role: "", telegram: "" },
+                "": { status: "", expiry: "", role: "", telegram: "" },
+                "": { status: "", expiry: "", role: "", telegram: "" }
+            }
+        };
+
+        function checkLicense() {
+            const licenseType = document.getElementById('licenseType').value;
+            const username = document.getElementById('username').value.trim();
+            const modal = document.getElementById('modal');
+            const modalContent = document.getElementById('modal-content');
+
+            // Перевірка на вибір категорії та введення username
+            if (!licenseType && !username) {
+                modalContent.innerHTML = `<p class="error">Виберіть категорію для перевірки та введіть username.</p>`;
+                showModal();
+                return;
+            }
+
+            // Якщо не вибрана категорія
+            if (!licenseType) {
+                modalContent.innerHTML = `<p class="error">Виберіть категорію для перевірки.</p>`;
+                showModal();
+                return;
+            }
+
+            // Якщо не введено username
+            if (!username) {
+                modalContent.innerHTML = `<p class="error">Введіть username гравця.</p>`;
+                showModal();
+                return;
+            }
+
+            const userData = licenses[licenseType][username];
+
+            if (licenseType === 'role') {
+                if (userData) {
+                    modalContent.innerHTML = `
+                        <h2>Інформація про роль</h2>
+                        <p>Username: <strong>${username}</strong>
+                        <br>Роль: <strong>${userData.role}</strong>
+                        <br>Telegram: <strong>${userData.telegram}</strong></p>
+                    `;
+                } else {
+                    modalContent.innerHTML = `
+                        <h2>Інформація про роль</h2>
+                        <p>Username: <strong>${username}</strong>
+                        <br>Роль: <strong>Звичайний гравець</strong></p>
+                    `;
+                }
+                } else if (licenseType === 'medical') {
+                  if (userData) {
+                   const role = userData.role || 'Відсутнє'; 
+
+                     modalContent.innerHTML = `
+                      <h2>Інформація про поліцейське посвідчення</h2>
+                      <p>Номер: <strong>${userData.status}</strong>
+                      <br>Username: <strong>${username}</strong>
+                      <br>Звання: <strong>${role}</strong>
+                      <br>Telegram: <strong>${userData.telegram}</strong>
+                      <br>Дійсне до: <strong>${userData.expiry}</strong></p>
+                       `;
+                } else {
+                    modalContent.innerHTML = `<p class="error">Поліцейське посвідчення для ${username} відсутнє.</p>`;
+                }
+
+
+            } else if (licenseType === 'weapon') {  // Для ліцензії на зброю
+    if (userData) {
+        const expiryDate = new Date(userData.expiry);
+        const currentDate = new Date();
+        let statusMessage = "Дійсна";
+        let expiryText = `<br>Дійсна до: <strong>${userData.expiry}</strong>`;
+
+        // Якщо ліцензія на зброю і дата закінчення минула
+        if (expiryDate < currentDate) {
+            statusMessage = "Не дійсна. <br>Для поновлення зв'яжіться з адміністратором.";
+            expiryText = '';  // Не виводимо "Дійсна до", якщо ліцензія не дійсна
+        }
+
+        modalContent.innerHTML = `
+            <h2>Інформація про ліцензію на зброю</h2>
+            <p>Username: <strong>${username}</strong>
+            <br>Статус: <strong>${statusMessage}</strong>
+            ${expiryText}
+            <br>Telegram: <strong>${userData.telegram}</strong></p>
+        `;
+    } else {
+        modalContent.innerHTML = `<p class="error">Ліцензія для ${username} не знайдена.</p>`;
+    }
+            }
+
+            showModal();
+        }
+
+        function showModal() {
+    const modal = document.getElementById('modal');
+    modal.classList.add('show');
+}
+
+function closeModal() {
+    const modal = document.getElementById('modal');
+    modal.classList.remove('show');
+}
+
+document.getElementById('username').addEventListener('input', function () {
+    if (this.value.trim() === "") {
+        closeModal();
+    }
+});
+    </script>
+
+</body>
+</html>
+
