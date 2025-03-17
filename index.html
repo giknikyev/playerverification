@@ -198,6 +198,8 @@ footer {
             <option value="weapon">Ліцензія на зброю</option>
             <option value="role">Роль</option>
             <option value="medical">Поліцейське посвідчення</option>
+            <option value="taxi">Таксистська ліцензія</option>
+            <option value="advocat">Адвокатська ліцензія</option>
         </select>
         
         <input type="text" id="username" placeholder="Введіть username">
@@ -245,7 +247,7 @@ footer {
             },
 
             role: {
-             "nikyev_Off": { role: "Засновник сервера", telegram: "t.me/ukreh_admin" },
+    "nikyev_Off": { role: "Засновник сервера", telegram: "t.me/ukreh_admin" },
     "Zoomsos123": { role: "Адмін сервера", telegram: "t.me/Xmm_help" },
     "bodja150510": { role: "Адмін сервера", telegram: "t.me/marsqwrty0" },
     "Yezh1lya": { role: "Адмін сервера", telegram: "t.me/True_Japanese_Samurai" },
@@ -283,7 +285,39 @@ footer {
                 "": { status: "", expiry: "", role: "", telegram: "" },
                 "": { status: "", expiry: "", role: "", telegram: "" },
                 "": { status: "", expiry: "", role: "", telegram: "" }
+            },
+
+            taxi: {
+              "RODON297": { "status": "T0001", "telegram": "5196592487" },
+              "Rechs10": { "status": "T0002", "telegram": "6387100458" },
+              "Jarik_8288": { "status": "T0003", "telegram": "7405708479" },
+              "Tyjorty123987": { "status": "T0004", "telegram": "1410588546" },
+              "2skyxx2": { "status": "T0005", "telegram": "7334176004" },
+              "alkasar098": { "status": "T0006", "telegram": "6639467775" },
+              "tsena647a": { "status": "T0007", "telegram": "7082897135" },
+              "gugamikus12": { "status": "T0008", "telegram": "5327752778" },
+              "kar_karY55": { "status": "T0009", "telegram": "1070341794" },
+              "abobus_22026": { "status": "T0010", "telegram": "1283110118" },
+              "starikashka228337": { "status": "T0011", "telegram": "5358641921" },
+              "AMIR02285": { "status": "T0012", "telegram": "6659116084" },
+              "Winnni_bro": { "status": "T0013", "telegram": "5731039855" },
+              "edic426": { "status": "T0014", "telegram": "5356558580" },
+              "FunnyArtem_2012": { "status": "T0015", "telegram": "5228238256" },
+              "SteshaAli": { "status": "T0016", "telegram": "5310932365" },
+              "Nikitako306": { "status": "T0017", "telegram": "7827149872" },
+              "jeueuefh9": { "status": "T0018", "telegram": "6400565921" },
+              "cheburah_0": { "status": "T0019", "telegram": "6383340935" }
+
+            },
+
+            advocat: {
+                "belgaz5": { status: "A0303", telegram: "7131195407" },
+                "sholz1zi": { status: "A0202", telegram: "600303682" },
+                "": { status: "", telegram: "" },
+                "": { status: "", telegram: "" },
+                "": { status: "", telegram: "" }
             }
+
         };
 
         function checkLicense() {
@@ -308,7 +342,7 @@ footer {
 
             // Якщо не введено username
             if (!username) {
-                modalContent.innerHTML = `<p class="error">Введіть username гравця.</p>`;
+                modalContent.innerHTML = `<p class="error">Введіть username.</p>`;
                 showModal();
                 return;
             }
@@ -344,6 +378,34 @@ footer {
                        `;
                 } else {
                     modalContent.innerHTML = `<p class="error">Поліцейське посвідчення для ${username} відсутнє.</p>`;
+                }
+
+
+            } else if (licenseType === 'taxi') {
+                  if (userData) {
+
+                     modalContent.innerHTML = `
+                      <h2>Інформація про таксистську ліцензію</h2>
+                      <p>Номер: <strong>${userData.status}</strong>
+                      <br>Username: <strong>${username}</strong>
+                      <br>Telegram: <strong>${userData.telegram}</strong>
+                       `;
+                } else {
+                    modalContent.innerHTML = `<p class="error">Таксистська ліцензія у ${username} відсутня.</p>`;
+                }
+
+                
+            } else if (licenseType === 'advocat') {
+                  if (userData) {
+
+                     modalContent.innerHTML = `
+                      <h2>Інформація про адвокатську ліцензію</h2>
+                      <p>Номер: <strong>${userData.status}</strong>
+                      <br>Username: <strong>${username}</strong>
+                      <br>Telegram: <strong>${userData.telegram}</strong>
+                       `;
+                } else {
+                    modalContent.innerHTML = `<p class="error">Адвокатська ліцензія у ${username} відсутня.</p>`;
                 }
 
 
@@ -394,4 +456,3 @@ document.getElementById('username').addEventListener('input', function () {
 
 </body>
 </html>
-
