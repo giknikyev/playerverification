@@ -202,6 +202,8 @@ footer {
             <option value="weapon">Ліцензія на зброю</option>
             <option value="taxi">Таксистська ліцензія</option>
             <option value="advocat">Адвокатська ліцензія</option>
+            <option value="presslicense">Журналістська ліцензія</option>
+            <option value="press">Зареєстровані ЗМІ</option>
             <option value="medical"disabled>Зареєстровані бізнеси</option>
         </select>
         
@@ -363,8 +365,14 @@ footer {
                 "Klipri": { status: "A1414", telegram: "548708048" },
                 "": { status: "", telegram: "" },
                 "": { status: "", telegram: "" }
-            }
+            },
+           presslicense: {
+              "username": { "status": "nomer", "telegram": "tg" },
+},
 
+press: {
+              "username": { "status": "nazva", "telegram": "tg" },
+}
         };
 
         function checkLicense() {
@@ -428,7 +436,37 @@ footer {
                 }
 
 
-            } else if (licenseType === 'taxi') {
+            } else if (licenseType === 'presslicense') {
+                  if (userData) {
+
+                     modalContent.innerHTML = `
+                      <h2>Інформація про журналістську ліцензію</h2>
+                      <p>Номер: <strong>№${userData.status}</strong>
+                      <br>Username: <strong>${username}</strong>
+                      <br>Telegram: <strong>${userData.telegram}</strong>
+                       `;
+                } else {
+                    modalContent.innerHTML = `<p class="error">Журналістська ліцензія у ${username} відсутня.</p>`;
+                }
+
+                
+            } 
+            else if (licenseType === 'press') {
+                  if (userData) {
+
+                     modalContent.innerHTML = `
+                      <h2>Інформація про ЗМІ</h2>
+                      <p>Назва: <strong>${userData.status}</strong>
+                      <br>Username власника: <strong>${username}</strong>
+                      <br>Telegram власника: <strong>${userData.telegram}</strong>
+                       `;
+                } else {
+                    modalContent.innerHTML = `<p class="error">${username} не є власником жодного зареєстрованого ЗМІ.</p>`;
+                }
+
+                
+            } 
+            else if (licenseType === 'taxi') {
                   if (userData) {
 
                      modalContent.innerHTML = `
