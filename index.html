@@ -9,7 +9,7 @@
     <style>
 body {
     font-family: 'Roboto', sans-serif;
-    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url('фон-новий22.png') no-repeat center center/cover;
+    background: linear-gradient(rgba(0, 0, 0, 0.393), rgba(0, 0, 0, 0.399)), url('фон-сайту-п.г.png') no-repeat center center/cover;
     color: #fff;
     margin: 0;
     padding-top: 0;
@@ -43,10 +43,10 @@ body {
 .container {
     width: 90%;
     max-width: 800px;
-    background: #1f2e29f0;
+    background: #5b2e03e3;
     border-radius: 15px;
     padding: 20px;
-    box-shadow: 0 8px 20px rgba(207, 207, 207, 0.5);
+    box-shadow: 0 8px 20px rgba(66, 66, 66, 0.84);
     text-align: center;
 }
 
@@ -60,14 +60,14 @@ select, input, button {
 }
 
 button {
-    background-color: #005610;
+    background-color: #c15d00;
     color: #fff;
     cursor: pointer;
     transition: background 0.3s ease;
 }
 
 button:hover {
-    background-color: #017a17;
+    background-color: #dd6b00;
 }
 
 .modal {
@@ -76,7 +76,7 @@ button:hover {
     left: 50%;
     transform: translate(-50%, -50%) scale(0.7);
     width: 400px;
-    background: #29293d;
+    background: #4b2500;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 10px 30px rgba(255, 255, 255, 0.477);
@@ -117,7 +117,7 @@ footer {
     width: 100%;
     text-align: center;
     padding: 10px;
-    background: #5a5aff00;
+    background: #00000000;
     color: #ffffffdd;
 }
 .social-links {
@@ -130,7 +130,7 @@ footer {
 
 .social-button {
     padding: 10px 15px;
-    background-color: #005610;
+    background-color: #c15d00;
     color: #fff;
     border-radius: 5px;
     text-decoration: none;
@@ -143,7 +143,7 @@ footer {
 }
 
 .social-button:hover {
-    background-color: #017a17;
+    background-color: #dd6b00;
 }
 
 @media (max-width: 786px) {
@@ -204,7 +204,7 @@ footer {
             <option value="advocat">Адвокатська ліцензія</option>
             <option value="presslicense">Журналістська ліцензія</option>
             <option value="press">Зареєстровані ЗМІ</option>
-            <option value="medical"disabled>Зареєстровані бізнеси</option>
+            <option value="business">Зареєстровані бізнеси</option>
         </select>
         
         <input type="text" id="username" placeholder="Введіть username">
@@ -219,15 +219,16 @@ footer {
 
     <!-- Кнопки з посиланнями -->
 <div class="social-links">
-    <a href="https://t.me/+vGSTB2xTvp83Yjc0" target="_blank" class="social-button tiktok">Telegram</a>
-    <a href="https://www.tiktok.com/@ukrainerpeh?_t=ZN-8tWqtjqCgxb&_r=1" target="_blank" class="social-button tiktok">TikTok</a>
-    <a href="https://x.com/UkraineRP_EH" target="_blank" class="social-button tiktok">Twitter</a>
+            <a href="https://giknikyev.github.io/serverrules/" target="_blank" class="social-button tiktok">ПРАВИЛА</a>
+        <a href="https://giknikyev.github.io/roles/" target="_blank" class="social-button tiktok">РОЛІ</a>
     <a href="https://www.roblox.com/games/start?placeId=7711635737&launchData=joinCode%3D0uadtv1u" target="_blank" class="social-button tiktok">ГРАТИ</a>
 </div>
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2025 Ukraine RP | Всі права захищені</p>
+        <p>&copy; <b>2025 Ukraine RP. Всі права захищені.</b>
+<br><small> Усі матеріали, представлені на цьому сайті, є об'єктами авторського права і охороняються відповідно до законодавства.
+<br>Копіювання, розподіл або використання матеріалів сайту в будь-якій формі без попередньої письмової згоди власника авторських прав заборонено.</small></p>
     </footer>
 
     <script>
@@ -265,13 +266,18 @@ footer {
 
         },
         
-            medical: {
-                "": { status: "", expiry: "", role: "", telegram: "" },
-                "": { status: "", expiry: "", role: "", telegram: "" },
-                "": { status: "", expiry: "", role: "", telegram: "" },
-                "": { status: "", expiry: "", role: "", telegram: "" },
-                "": { status: "", expiry: "", role: "", telegram: "" },
-            },
+           business: {
+  "Robert_polsan228": { status: "7696678842", role: "Грант Плюс", telegram: "1921850684" },
+  "XxHA7AxX": { status: "2918785998", role: "UkrBank", telegram: "1731530720" },
+  "MaxPowerPlay2": { status: "7143205526", role: "немає (тип діяльності охорона)", telegram: "6736952314" },
+  "Otto_octopu": { status: "4030724774", role: "Зевс", telegram: "6110818100" },
+  "neymar234612": { status: "5080670998", role: "Driver company UR", telegram: "2072597149" },
+  "Caston08963": { status: "4775989978", role: "ОВЖ (Охорона Вашого Життя)", telegram: "7557434574" },
+  "nikita100808": { status: "7244099562", role: "Olimp", telegram: "6348110356" },
+  "cheater777_Yt": { status: "1509308134", role: "ВВС", telegram: "5696745197" },
+  "Pit_uk": { status: "7642149168", role: "Подай Руку", telegram: "7811050819" },
+},
+
 
             taxi: {
               "RODON297": { "status": "T0001", "telegram": "5196592487" },
@@ -381,11 +387,15 @@ footer {
                 "": { status: "", telegram: "" }
             },
            presslicense: {
-              "username": { "status": "nomer", "telegram": "tg" },
+              "Bandera909": { status: "NB01", telegram: "6909809142", role: "NOW NEWS"},
+              "dima2014hxoxbifov": { status: "ND02", telegram: "6318992501", role: "NOW NEWS"},
+              "XxsSashaxxjj": { status: "NO03", telegram: "5437435849", role: "NOW NEWS"},
+              "Caston08963": { status: "NA04", telegram: "7557434574", role: "NOW NEWS"},
+              "pavel36558": { status: "NP05", telegram: "7485750248", role: "NOW NEWS"},
 },
 
 press: {
-              "lSqwizzyl": { "status": "NOW NEWS", "telegram": "965366743" },
+              "lSqwizzyl": { "status": "NOW NEWS", "telegram": "t.me/shppsqwizzy"},
 }
         };
 
@@ -433,30 +443,34 @@ press: {
                         <br>Роль: <strong>Звичайний гравець</strong></p>
                     `;
                 }
-                } else if (licenseType === 'medical') {
+                
+            } 
+            
+            else if (licenseType === 'business') {
                   if (userData) {
-                   const role = userData.role || 'Відсутнє'; 
 
                      modalContent.innerHTML = `
-                      <h2>Інформація про поліцейське посвідчення</h2>
-                      <p>Номер: <strong>${userData.status}</strong>
-                      <br>Username: <strong>${username}</strong>
-                      <br>Звання: <strong>${role}</strong>
-                      <br>Telegram: <strong>${userData.telegram}</strong>
-                      <br>Дійсне до: <strong>${userData.expiry}</strong></p>
+                      <h2>Інформація про Бізнес</h2>
+                      <p>Назва: <strong>${userData.role}</strong>
+                      <br>Ідентифікаційний код: <strong>${userData.status}</strong>
+                      <br>Username власника: <strong>${username}</strong>
+                      <br>Telegram власника: <strong>${userData.telegram}</strong>
                        `;
                 } else {
-                    modalContent.innerHTML = `<p class="error">Поліцейське посвідчення для ${username} відсутнє.</p>`;
+                    modalContent.innerHTML = `<p class="error">У ${username} немає зареєстрованих бізнесів.</p>`;
                 }
 
-
-            } else if (licenseType === 'presslicense') {
+                
+            } 
+            
+            else if (licenseType === 'presslicense') {
                   if (userData) {
 
                      modalContent.innerHTML = `
                       <h2>Інформація про журналістську ліцензію</h2>
                       <p>Номер: <strong>№${userData.status}</strong>
                       <br>Username: <strong>${username}</strong>
+                      <br>Редакція: <strong>${userData.role}</strong>
                       <br>Telegram: <strong>${userData.telegram}</strong>
                        `;
                 } else {
@@ -465,6 +479,7 @@ press: {
 
                 
             } 
+            
             else if (licenseType === 'press') {
                   if (userData) {
 
