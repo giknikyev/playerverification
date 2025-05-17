@@ -43,10 +43,10 @@ body {
 .container {
     width: 90%;
     max-width: 800px;
-    background: #5b2e03e3;
+    background: #7a3e05;
     border-radius: 15px;
     padding: 20px;
-    box-shadow: 0 8px 20px rgba(66, 66, 66, 0.84);
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.436);
     text-align: center;
 }
 
@@ -205,6 +205,7 @@ footer {
             <option value="presslicense">Журналістська ліцензія</option>
             <option value="press">Зареєстровані ЗМІ</option>
             <option value="business">Зареєстровані бізнеси</option>
+            <option value="mafia">Легалізовані мафії/банди</option>
         </select>
         
         <input type="text" id="username" placeholder="Введіть username">
@@ -235,8 +236,7 @@ footer {
         const licenses = {
             weapon: {
                 // Куплені
-    "starikashka228337": { status: "Дійсна", expiry: "09.05.2025", telegram: "5358641921" },
-    "Palamarka2288": { status: "Дійсна", expiry: "09.05.2025", telegram: "1902876079" },
+    "": { status: "Дійсна", expiry: "09.05.2025", telegram: "" },
                 // Суд
     "Arina_mike141": { status: "Дійсна", expiry: "06.06.2025", telegram: "7505928620" },
     "Svervanchik": { status: "Дійсна", expiry: "06.06.2025", telegram: "5634473488" },
@@ -378,7 +378,7 @@ footer {
               "zaaahaaar_20": { "status": "T0094", "telegram": "5203143264" },
               "Dmutro_163": { "status": "T0095", "telegram": "7761603375" },
               "СAXAPOK_5685rb": { "status": "T0096", "telegram": "7672435136" },
-              "": { "status": "T0097", "telegram": "8171749938" },
+              "Zubarefff38": { "status": "T0097", "telegram": "8171749938" },
               },
 
             advocat: {
@@ -398,7 +398,15 @@ footer {
 
 press: {
               "lSqwizzyl": { "status": "NOW NEWS", "telegram": "t.me/shppsqwizzy"},
-}
+},
+
+            mafia: {
+                "MAXIM4IK123098": { status: "Чорний Легіон", telegram: "6053516349" },
+                "": { status: "назва", telegram: "" },
+                "": { status: "назва", telegram: "" },
+                "": { status: "назва", telegram: "" },
+                "": { status: "назва", telegram: "" }
+            },
         };
 
         function checkLicense() {
@@ -423,7 +431,7 @@ press: {
 
             // Якщо не введено username
             if (!username) {
-                modalContent.innerHTML = `<p class="error">Введіть username.</p>`;
+                modalContent.innerHTML = `<p class="error">Введіть username власника.</p>`;
                 showModal();
                 return;
             }
@@ -447,6 +455,7 @@ press: {
                 }
                 
             } 
+            
             
             else if (licenseType === 'business') {
                   if (userData) {
@@ -497,6 +506,22 @@ press: {
 
                 
             } 
+            else if (licenseType === 'mafia') {
+                  if (userData) {
+
+                     modalContent.innerHTML = `
+                      <h2>Інформація про легалізовану мафію</h2>
+                      <p>Назва: <strong>${userData.status}</strong>
+                      <br>Username власника: <strong>${username}</strong>
+                      <br>Telegram власника: <strong>${userData.telegram}</strong>
+                       `;
+                } else {
+                    modalContent.innerHTML = `<p class="error">${username} не є власником жодної легалізованої мафії чи банди.</p>`;
+                }
+
+
+
+            } 
             else if (licenseType === 'taxi') {
                   if (userData) {
 
@@ -525,31 +550,42 @@ press: {
                 }
 
 
-            } else if (licenseType === 'weapon') {  // Для ліцензії на зброю
-    if (userData) {
-        const expiryDate = new Date(userData.expiry);
-        const currentDate = new Date();
-        let statusMessage = "Дійсна";
-        let expiryText = `<br>Дійсна до: <strong>${userData.expiry}</strong>`;
 
-        // Якщо ліцензія на зброю і дата закінчення минула
-        if (expiryDate < currentDate) {
-            statusMessage = "Не дійсна. <br>Для поновлення зв'яжіться з адміністратором.";
-            expiryText = '';  // Не виводимо "Дійсна до", якщо ліцензія не дійсна
-        }
+            }
+            
+      else if (licenseType === 'weapon') {
+    if (userData) {
+        const [day, month, year] = userData.expiry.split('.');
+        const formattedExpiry = `${year}-${month}-${day}`;
+
+        const todayStr = new Date().toISOString().split('T')[0];
+        const expiryStr = new Date(formattedExpiry).toISOString().split('T')[0];
+
+        const isExpired = expiryStr < todayStr;
+
+        const statusMessage = isExpired 
+            ? "Не дійсна. <br>Для поновлення зв'яжіться з адміністратором." 
+            : "Дійсна";
+
+        const expiryText = isExpired 
+            ? '' 
+            : `<br>Дійсна до: <strong>${userData.expiry}</strong>`;
 
         modalContent.innerHTML = `
             <h2>Інформація про ліцензію на зброю</h2>
-            <p>Username: <strong>${username}</strong>
-            <br>Статус: <strong>${statusMessage}</strong>
-            ${expiryText}
-            <br>Telegram: <strong>${userData.telegram}</strong></p>
+            <p>
+                Username: <strong>${username}</strong><br>
+                Статус: <strong>${statusMessage}</strong>
+                ${expiryText}<br>
+                Telegram: <strong>${userData.telegram}</strong>
+            </p>
         `;
     } else {
-        modalContent.innerHTML = `<p class="error">Ліцензія для ${username} не знайдена.</p>`;
+        modalContent.innerHTML = `
+            <p class="error">Ліцензія для ${username} не знайдена.</p>
+        `;
     }
-            }
-
+}
             showModal();
         }
 
