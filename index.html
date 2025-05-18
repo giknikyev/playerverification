@@ -76,7 +76,7 @@ button:hover {
     left: 50%;
     transform: translate(-50%, -50%) scale(0.7);
     width: 400px;
-    background: #4b2500;
+    background: rgb(176, 88, 0);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 10px 30px rgba(255, 255, 255, 0.477);
@@ -171,7 +171,7 @@ footer {
     }
 
     footer {
-        padding: 10px 15px;
+        padding: 8px 13px;
     }
 
     .social-links {
@@ -239,7 +239,7 @@ footer {
             weapon: {
                 // Куплені
     "nikita100808": { status: "Дійсна", expiry: "19.06.2025", telegram: "6348110356" },
-    "dolinskuy": { status: "Дійсна", expiry: "19.06.2025", telegram: "1812225406" },
+    "dolinskuy": { status: "порушення статтей 1 та 2 пункту 40", expiry: "00.00.0000", telegram: "1812225406" },
                 // Суд
     "Arina_mike141": { status: "Дійсна", expiry: "06.06.2025", telegram: "7505928620" },
     "Svervanchik": { status: "Дійсна", expiry: "06.06.2025", telegram: "5634473488" },
@@ -564,40 +564,53 @@ press: {
 
 
             }
-            
-      else if (licenseType === 'weapon') {
+else if (licenseType === 'weapon') {
     if (userData) {
-        const [day, month, year] = userData.expiry.split('.');
-        const formattedExpiry = `${year}-${month}-${day}`;
+        if (userData.expiry === "00.00.0000") {
+            modalContent.innerHTML = `
+                <h3>Інформація про ліцензію на зброю для ${username}</h3>
+                <p>
+                    Статус: <strong>скасовано через ${userData.status}</strong><br>
+                    <small>Ліцензія не підлягає відновленню. Якщо ви вважаєте інакше, будь ласка, подайте апеляцію до суду.</small><br><br>
+                    Telegram: <strong>${userData.telegram}</strong>
+                </p>
+            `;
+        } else {
+            // Перевірка дати
+            const [day, month, year] = userData.expiry.split('.');
+            const formattedExpiry = `${year}-${month}-${day}`;
 
-        const todayStr = new Date().toISOString().split('T')[0];
-        const expiryStr = new Date(formattedExpiry).toISOString().split('T')[0];
+            const todayStr = new Date().toISOString().split('T')[0];
+            const expiryStr = new Date(formattedExpiry).toISOString().split('T')[0];
 
-        const isExpired = expiryStr < todayStr;
+            const isExpired = expiryStr < todayStr;
 
-        const statusMessage = isExpired 
-            ? "Не дійсна. <br>Для поновлення зв'яжіться з адміністратором." 
-            : "Дійсна";
+            const statusMessage = isExpired 
+                ? "Не дійсна. <br>Для поновлення зв'яжіться з адміністратором." 
+                : "Дійсна";
 
-        const expiryText = isExpired 
-            ? '' 
-            : `<br>Дійсна до: <strong>${userData.expiry}</strong>`;
+            const expiryText = isExpired 
+                ? '' 
+                : `<br>Дійсна до: <strong>${userData.expiry}</strong>`;
 
-        modalContent.innerHTML = `
-            <h2>Інформація про ліцензію на зброю</h2>
-            <p>
-                Username: <strong>${username}</strong><br>
-                Статус: <strong>${statusMessage}</strong>
-                ${expiryText}<br>
-                Telegram: <strong>${userData.telegram}</strong>
-            </p>
-        `;
+            modalContent.innerHTML = `
+                <h2>Інформація про ліцензію на зброю</h2>
+                <p>
+                    Username: <strong>${username}</strong><br>
+                    Статус: <strong>${statusMessage}</strong>
+                    ${expiryText}<br>
+                    Telegram: <strong>${userData.telegram}</strong>
+                </p>
+            `;
+        }
     } else {
         modalContent.innerHTML = `
             <p class="error">Ліцензія для ${username} не знайдена.</p>
         `;
     }
 }
+
+
             showModal();
         }
 
