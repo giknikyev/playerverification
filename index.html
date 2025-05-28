@@ -276,20 +276,21 @@ footer {
 
 
         },
+
         // Зареєстровані бізнеси
-           business: {
+  business: {
   "Robert_polsan228": { status: "7696678842", role: "Грант Плюс", telegram: "1921850684" },
   "XxHA7AxX": { status: "2918785998", role: "UkrBank", telegram: "1731530720" },
-  "MaxPowerPlay2": { status: "7143205526", role: "немає (тип діяльності охорона)", telegram: "6736952314" },
-  "Otto_octopu": { status: "4030724774", role: "Зевс", telegram: "6110818100" },
-  "neymar234612": { status: "5080670998", role: "Driver company UR", telegram: "2072597149" },
-  "Caston08963": { status: "4775989978", role: "ОВЖ (Охорона Вашого Життя)", telegram: "7557434574" },
-  "nikita100808": { status: "7244099562", role: "Olimp", telegram: "6348110356" },
-  "cheater777_Yt": { status: "1509308134", role: "ВВС", telegram: "5696745197" },
-  "Pit_uk": { status: "7642149168", role: "Подай Руку", telegram: "7811050819" },
-  "r_uil256": { status: "5034757438", role: "Швидка їжа", telegram: "5752735362" },
-  "levopravo2024": { status: "7491753543", role: "Sweet Luck", telegram: "5134083594" },
-  "redjeek0": { status: "5661325408", role: "Щит Охорони", telegram: "5202905191" },
+  "MaxPowerPlay2": { cans: "CANS через несплату податку на сервер.", status: "7143205526", role: "немає (тип діяльності охорона)", telegram: "6736952314" },
+  "Otto_octopu": { cans: "CANS через несплату податку на сервер.", status: "4030724774", role: "Зевс", telegram: "6110818100" },
+  "neymar234612": { cans: "CANS через несплату податку на сервер.", status: "5080670998", role: "Driver company UR", telegram: "2072597149" },
+  "Caston08963": { cans: "CANS через несплату податку на сервер.", status: "4775989978", role: "ОВЖ (Охорона Вашого Життя)", telegram: "7557434574" },
+  "nikita100808": { cans: "CANS через несплату податку на сервер.", status: "7244099562", role: "Olimp", telegram: "6348110356" },
+  "cheater777_Yt": { cans: "CANS через несплату податку на сервер.", status: "1509308134", role: "ВВС", telegram: "5696745197" },
+  "Pit_uk": { cans: "CANS через несплату податку на сервер.", status: "7642149168", role: "Подай Руку", telegram: "7811050819" },
+  "r_uil256": { cans: "CANS через несплату податку на сервер.", status: "5034757438", role: "Швидка їжа", telegram: "5752735362" },
+  "levopravo2024": { cans: "CANS за власним бажанням.", status: "7491753543", role: "Sweet Luck", telegram: "5134083594" },
+  "redjeek0": { cans: "CANS за власним бажанням.", status: "5661325408", role: "Щит Охорони", telegram: "5202905191" },
   "dima2014hxoxbifov": { status: "7630083874", role: "Вереск", telegram: "6318992501" },
   "username roblox": { status: "ідентифікаційний код", role: "назва", telegram: "айді акаунту тг" },
   "username roblox": { status: "ідентифікаційний код", role: "назва", telegram: "айді акаунту тг" },
@@ -297,7 +298,6 @@ footer {
   "username roblox": { status: "ідентифікаційний код", role: "назва", telegram: "айді акаунту тг" },
 
 },
-
               // Таксистська ліцензія
             taxi: {
               "RODON297": { "status": "T0001", "telegram": "5196592487" },
@@ -439,7 +439,7 @@ footer {
 
               // Адвокадська ліцензія
             advocat: {
-                "belgaz5": { status: "A0303", telegram: "7131195407" },
+                "belgaz5": { cans: "CANS через несплату податку.", status: "A0303", telegram: "7131195407" },
                 "sholz1zi": { status: "A0202", telegram: "600303682" },
                 "Klipri": { status: "A1414", telegram: "548708048" },
                 "roogxgxg12": { status: "A3737", telegram: "2122161720" },
@@ -468,7 +468,7 @@ footer {
             
             // Зареєстровані ЗМІ
          press: {
-              "lSqwizzyl": { "status": "NOW NEWS", "telegram": "t.me/shppsqwizzy"},
+              "lSqwizzyl": { status: "NOW NEWS", "telegram": "t.me/shppsqwizzy"},
               "username roblox": { "status": "назва ЗМІ", "telegram": "t.me/username"}, // якщо немає username, вказувати id (без t.me/)
               "username roblox": { "status": "назва ЗМІ", "telegram": "t.me/username"},
             },
@@ -532,98 +532,142 @@ footer {
             } 
             
             
-            else if (licenseType === 'business') {
-                  if (userData) {
+       else if (licenseType === 'business') {
+    if (userData) {
+        if (userData.cans && userData.cans.startsWith('CANS')) {
+            const reason = userData.cans.slice(4).trim(); 
+            modalContent.innerHTML = `
+                <h2>Реєстрацію Бізнесу Скасовано</h2>
+                <p>Реєстрацію вашого бізнесу <i>${userData.status}</i> скасовано <strong>${reason}</strong></p>
+                <p>Username власника: <strong>${username}</strong><br>
+                Telegram власника: <strong>${userData.telegram}</strong></p>
+            `;
+        } else {
+            modalContent.innerHTML = `
+                <h2>Інформація про Бізнес</h2>
+                <p>Назва: <strong>${userData.role}</strong><br>
+                Ідентифікаційний код: <strong>${userData.status}</strong><br>
+                Username власника: <strong>${username}</strong><br>
+                Telegram власника: <strong>${userData.telegram}</strong></p>
+            `;
+        }
+    } else {
+        modalContent.innerHTML = `<p class="error">У ${username} немає зареєстрованих бізнесів.</p>`;
+    }
+}
 
-                     modalContent.innerHTML = `
-                      <h2>Інформація про Бізнес</h2>
-                      <p>Назва: <strong>${userData.role}</strong>
-                      <br>Ідентифікаційний код: <strong>${userData.status}</strong>
-                      <br>Username власника: <strong>${username}</strong>
-                      <br>Telegram власника: <strong>${userData.telegram}</strong>
-                       `;
-                } else {
-                    modalContent.innerHTML = `<p class="error">У ${username} немає зареєстрованих бізнесів.</p>`;
-                }
-
-                
-            } 
-            
-            else if (licenseType === 'presslicense') {
-                  if (userData) {
-
-                     modalContent.innerHTML = `
-                      <h2>Інформація про журналістську ліцензію</h2>
+else if (licenseType === 'presslicense') {
+    if (userData) {
+        if (userData.cans && userData.cans.startsWith('CANS')) {
+            const reason = userData.cans.slice(4).trim(); 
+            modalContent.innerHTML = `
+                <h2>Журналістську Ліцензію Скасовано</h2>
+                <p>Прес-карту <i>№${userData.status} (редакція «${userData.role}»)</i> скасовано <strong>${reason}</strong></p>
+                <p>Username: <strong>${username}</strong><br>
+                Telegram: <strong>${userData.telegram}</strong></p>
+            `;
+        } else {
+            modalContent.innerHTML = `
+                  <h2>Інформація про журналістську ліцензію</h2>
                       <p>Номер: <strong>№${userData.status}</strong>
                       <br>Username: <strong>${username}</strong>
                       <br>Редакція: <strong>${userData.role}</strong>
                       <br>Telegram: <strong>${userData.telegram}</strong>
-                       `;
-                } else {
-                    modalContent.innerHTML = `<p class="error">Журналістська ліцензія у ${username} відсутня.</p>`;
-                }
-
-                
-            } 
+            `;
+        }
+    } }
             
-            else if (licenseType === 'press') {
-                  if (userData) {
+else if (licenseType === 'press') {
+    if (userData) {
+        if (userData.cans && userData.cans.startsWith('CANS')) {
+            const reason = userData.cans.slice(4).trim(); 
+            modalContent.innerHTML = `
+                <h2>Реєстрацію ЗМІ Скасовано</h2>
+                <p>Реєстрацію ЗМІ „<i>${userData.status}</i>” скасовано <strong>${reason}</strong></p>
+                <p>Username власника: <strong>${username}</strong><br>
+                Telegram власника: <strong>${userData.telegram}</strong></p>
+            `;
+        } else {
+            modalContent.innerHTML = `
+                <h2>Інформація про ЗМІ</h2>
+                Назва: <strong>${userData.status}</strong>
+                <br>Username власника: <strong>${username}</strong>
+                <br>Telegram власника: <strong>${userData.telegram}</strong>
+            `;
+        }
+    } else {
+        modalContent.innerHTML = `<p class="error">${username} не є власником жодного зареєстрованого ЗМІ.</p>`;
+    }
+}
+          else if (licenseType === 'mafia') {
+    if (userData) {
+        if (userData.cans && userData.cans.startsWith('CANS')) {
+            const reason = userData.cans.slice(4).trim(); 
+            modalContent.innerHTML = `
+                <h2>Легалізацію Мафії/банди Скасовано</h2>
+                <p>Легалізацію мафії/банди „<i>${userData.status}</i>” скасовано <strong>${reason}</strong></p>
+                <p>Username власника: <strong>${username}</strong><br>
+                Telegram власника: <strong>${userData.telegram}</strong></p>
+            `;
+        } else {
+            modalContent.innerHTML = `
+                <h2>Інформація про легалізовану мафію/банду</h2>
+                Назва: <strong>${userData.status}</strong>
+                <br>Username власника: <strong>${username}</strong>
+                <br>Telegram власника: <strong>${userData.telegram}</strong>
+            `;
+        }
+    } else {
+        modalContent.innerHTML = `<p class="error">${username} не є власником жодної легалізованої мафії чи банди.</p>`;
+    }
+}
 
-                     modalContent.innerHTML = `
-                      <h2>Інформація про ЗМІ</h2>
-                      <p>Назва: <strong>${userData.status}</strong>
-                      <br>Username власника: <strong>${username}</strong>
-                      <br>Telegram власника: <strong>${userData.telegram}</strong>
-                       `;
-                } else {
-                    modalContent.innerHTML = `<p class="error">${username} не є власником жодного зареєстрованого ЗМІ.</p>`;
-                }
 
-                
-            } 
-            else if (licenseType === 'mafia') {
-                  if (userData) {
+         else if (licenseType === 'taxi') {
+    if (userData) {
+        if (userData.cans && userData.cans.startsWith('CANS')) {
+            const reason = userData.cans.slice(4).trim(); 
+            modalContent.innerHTML = `
+                <h2>Таксистську Ліцензію Скасовано</h2>
+                Ліцензію <i>${userData.status}</i> скасовано <strong>${reason}</strong>
+                <br><br>Username: <strong>${username}</strong>
+                <br>Telegram: <strong>${userData.telegram}</strong>
+            `;
+        } else {
+            modalContent.innerHTML = `
+                <h2>Інформація про таксистську ліцензію</h2>
+                Номер: <strong>${userData.status}</strong>
+                <br>Username: <strong>${username}</strong>
+                <br>Telegram: <strong>${userData.telegram}</strong>
+            `;
+        }
+    } else {
+        modalContent.innerHTML = `<p class="error">Таксистська ліцензія у ${username} відсутня.</p>`;
+    }
+}
 
-                     modalContent.innerHTML = `
-                      <h2>Інформація про легалізовану мафію</h2>
-                      <p>Назва: <strong>${userData.status}</strong>
-                      <br>Username власника: <strong>${username}</strong>
-                      <br>Telegram власника: <strong>${userData.telegram}</strong>
-                       `;
-                } else {
-                    modalContent.innerHTML = `<p class="error">${username} не є власником жодної легалізованої мафії чи банди.</p>`;
-                }
-
-
-
-            } 
-            else if (licenseType === 'taxi') {
-                  if (userData) {
-
-                     modalContent.innerHTML = `
-                      <h2>Інформація про таксистську ліцензію</h2>
-                      <p>Номер: <strong>${userData.status}</strong>
-                      <br>Username: <strong>${username}</strong>
-                      <br>Telegram: <strong>${userData.telegram}</strong>
-                       `;
-                } else {
-                    modalContent.innerHTML = `<p class="error">Таксистська ліцензія у ${username} відсутня.</p>`;
-                }
-
-                
-            } else if (licenseType === 'advocat') {
-                  if (userData) {
-
-                     modalContent.innerHTML = `
-                      <h2>Інформація про адвокатську ліцензію</h2>
-                      <p>Номер: <strong>${userData.status}</strong>
-                      <br>Username: <strong>${username}</strong>
-                      <br>Telegram: <strong>${userData.telegram}</strong>
-                       `;
-                } else {
-                    modalContent.innerHTML = `<p class="error">Адвокатська ліцензія у ${username} відсутня.</p>`;
-                }
-            }
+else if (licenseType === 'advocat') {
+    if (userData) {
+        if (userData.cans && userData.cans.startsWith('CANS')) {
+            const reason = userData.cans.slice(4).trim(); 
+            modalContent.innerHTML = `
+                <h2>Адвокатську Ліцензію Скасовано</h2>
+                Адвокатську ліцензію <i>${userData.status}</i> скасовано <strong>${reason}</strong>
+                <br>Username: <strong>${username}</strong>
+                <br>Telegram: <strong>${userData.telegram}</strong>
+            `;
+        } else {
+            modalContent.innerHTML = `
+                <h2>Інформація про адвокатську ліцензію</h2>
+                <p>Номер: <strong>${userData.status}</strong></p>
+                <p>Username: <strong>${username}</strong><br>
+                Telegram: <strong>${userData.telegram}</strong></p>
+            `;
+        }
+    } else {
+        modalContent.innerHTML = `<p class="error">Адвокатська ліцензія у ${username} відсутня.</p>`;
+    }
+}
 
             else if (licenseType === 'weapon') {
     if (userData) {
